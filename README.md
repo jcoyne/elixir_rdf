@@ -3,5 +3,7 @@
 ## To run:
 
 ```
-elixir parser.exs
+elixir parser.exs sample.nt
 ```
+
+Presently, it's just going to spit out a list of tokens.

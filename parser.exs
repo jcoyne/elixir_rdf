@@ -2,5 +2,14 @@
 # iex> :leex.file('ntriples.xrl')
 # iex> c("ntriples.erl")
 
-{:ok, tokens, _} = :ntriples.string('<http://foo.bar> <http://bar.gz> <http://foo.com>')
+[filename] = System.argv
+contents = case File.read(filename) do
+  {:ok, contents} ->
+    contents
+  {:error, reason} ->
+    IO.puts "Error: #{reason}"
+    exit(1)
+end
+
+{:ok, tokens, _} = :ntriples.string(to_char_list contents)
 IO.puts inspect tokens
