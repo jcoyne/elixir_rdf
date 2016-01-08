@@ -1,14 +1,17 @@
 Definitions.
 
-URI        = (([^<:/?#]+):)?(//([^</?#>]*))?([^<?#>]*)(\?([^#>]*))?(#(.*))?
+DOT        = \.
 WHITESPACE = [\s\t\n\r]
+URIREF     = <[^>]*>
+STRING     = \".*\"
 
 Rules.
 
-<             : {token, {'<',  TokenLine}}.
->             : {token, {'>',  TokenLine}}.
-{URI}         : {token, {uri, TokenLine, TokenChars}}.
-{WHITESPACE}+ : skip_token.
+{WHITESPACE}*{DOT}{WHITESPACE}*  : {token, {eoln, TokenLine}}.
+{URIREF}                         : {token, {uriref, TokenLine, TokenChars}}.
+{STRING}                         : {token, {string, TokenLine, TokenChars}}.
+{DOT}                            : {token, {'.', TokenLine}}.
+{WHITESPACE}+                    : skip_token.
 
 
 Erlang code.
