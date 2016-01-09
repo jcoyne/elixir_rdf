@@ -2,7 +2,12 @@
 # iex> :leex.file('ntriples.xrl')
 # iex> c("ntriples.erl")
 
-[filename] = System.argv
+filename = List.first(System.argv)
+if filename == nil do
+  IO.puts "Usage: elixir parser.exs <filename>"
+  exit(1)
+end
+
 contents = case File.read(filename) do
   {:ok, contents} ->
     contents
