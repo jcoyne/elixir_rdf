@@ -16,5 +16,7 @@ contents = case File.read(filename) do
     exit(1)
 end
 
-{:ok, tokens, _} = :ntriples.string(to_char_list contents)
+{:ok, tokens, _} = contents |> String.to_char_list |> :ntriples.string
 IO.puts inspect tokens
+{:ok, result } = :ntriples_parser.parse(tokens)
+IO.puts inspect result
