@@ -1,10 +1,18 @@
 defmodule RDF do
   def parse_ntriples(content) do
     {:ok, tokens, _} = content |> String.to_char_list |> :ntriples.string
-    IO.puts inspect tokens
     {:ok, result } = :ntriples_parser.parse(tokens)
     IO.puts inspect result
   end
+
+  def parse_turtle(content) do
+    raise "Not yet implemented"
+    {:ok, tokens, _} = content |> String.to_char_list |> :turtle.string
+    {:ok, result } = :turtle_parser.parse(tokens)
+    IO.puts inspect result
+  end
+
+  def parsers, do: %{ "ttl" => &RDF.parse_turtle/1, "nt" => &RDF.parse_ntriples/1 }
 
   def main(argv), do: argv |> parse_args |> process
 
@@ -23,9 +31,34 @@ defmodule RDF do
   end
 
   def process(filename) do
+    case find_parser(filename) do
+      {:ok, parser} ->
+        parse(filename, parser)
+      {:error, reason} ->
+        IO.puts "Error: #{reason}"
+        exit({:shutdown, 1})
+    end
+  end
+
+  def find_parser(filename) do
+    suffix = List.last String.split(filename, ~r{\.})
+    cond do
+      Enum.member?(["nt", "ttl"], suffix) ->
+        {:ok, parsers[suffix]}
+      true ->
+        {:error, "No parser found for #{suffix}"}
+    end
+  end
+
+  def parse(filename, parser) do
+    contents = load_content(filename)
+    parser.(contents)
+  end
+
+  def load_content(filename) do
     case File.read(filename) do
       {:ok, contents} ->
-        IO.puts inspect parse_ntriples(contents)
+        contents
       {:error, reason} ->
         IO.puts "Error: #{reason}"
         exit({:shutdown, 1})
