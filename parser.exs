@@ -5,7 +5,7 @@
 filename = List.first(System.argv)
 if filename == nil do
   IO.puts "Usage: elixir parser.exs <filename>"
-  exit(1)
+  exit({:shutdown, 1})
 end
 
 contents = case File.read(filename) do
@@ -13,10 +13,9 @@ contents = case File.read(filename) do
     contents
   {:error, reason} ->
     IO.puts "Error: #{reason}"
-    exit(1)
+    exit(:normal)
 end
 
-{:ok, tokens, _} = contents |> String.to_char_list |> :ntriples.string
-IO.puts inspect tokens
-{:ok, result } = :ntriples_parser.parse(tokens)
-IO.puts inspect result
+Code.eval_file('lib/elixir_rdf.ex')
+
+IO.puts inspect RDF.parse_ntriples(contents)
