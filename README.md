@@ -1,40 +1,19 @@
 # A rudimentary parser for NTriples RDF
 
-## To run:
-
-```
-elixir parser.exs sample.nt
-```
-
-Presently, it's just going to spit out a list of tokens.
-
-
 ## To build
 
 ```
-iex> :leex.file('ntriples.xrl')
-iex> c("ntriples.erl")
-
-iex> :yecc.file('ntriples_parser.yrl')
-iex> c("ntriples_parser.erl")
+$ mix escript.build
 ```
 
-This creates `ntriples.beam` and `ntriples_parser.beam`
+## To run:
 
+```
+./elixir_rdf sample.nt
+```
 
-## Installation
+Presently, it's just going to spit out a list of triples.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-1. Add elixir_rdf to your list of dependencies in `mix.exs`:
-
-       def deps do
-         [{:elixir_rdf, "~> 0.0.1"}]
-       end
-
-2. Ensure elixir_rdf is started before your application:
-
-        def application do
-          [applications: [:elixir_rdf]]
-        end
-
+```
+[{'<http://www.w3.org/2001/sw/RDFCore/ntriples/>', '<http://purl.org/dc/elements/1.1/creator>', '"Dave Beckett"'}, {'<http://www.w3.org/2001/sw/RDFCore/ntriples/>', '<http://purl.org/dc/elements/1.1/creator>', '"Art Barstow"'}, {'<http://www.w3.org/2001/sw/RDFCore/ntriples/>', '<http://purl.org/dc/elements/1.1/publisher>', '<http://www.w3.org/>'}]
+```

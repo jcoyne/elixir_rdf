@@ -6,3 +6,4 @@ erl_crash.dump
 /src/ntriples.erl
 /src/ntriples_parser.erl
 *.ez
+elixir_rdf
