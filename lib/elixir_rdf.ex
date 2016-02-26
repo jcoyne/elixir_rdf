@@ -6,7 +6,6 @@ defmodule RDF do
   end
 
   def parse_turtle(content) do
-    raise "Not yet implemented"
     {:ok, tokens, _} = content |> String.to_char_list |> :turtle.string
     {:ok, result } = :turtle_parser.parse(tokens)
     IO.puts inspect result
