@@ -26,7 +26,7 @@ triples ->
   subject predicateObjectList : make_triples('$1', '$2') .
 
 predicateObjectList ->
-  predicateObjectList semicolon verb objectList: ['$3'|makeObjectList('$3', '$4') ] .
+  predicateObjectList semicolon verb objectList: ['$1'|makeObjectList('$3', '$4')] .
 predicateObjectList ->
   verb objectList: makeObjectList('$1', '$2') .
 
@@ -49,7 +49,7 @@ object ->
 literal -> string : extract_token('$1') .
 
 blankNodePropertyList ->
-  l_bracket predicateObjectList r_bracket : { bnode, '$1' } .
+  l_bracket predicateObjectList r_bracket : { bnode, '$2' } .
 
 prefixID ->
   p_leader pn_chars colon uriref eoln : { prefix, extract_token('$2'), extract_token('$4') } .
@@ -66,7 +66,10 @@ Erlang code.
 
 extract_token({_Token, _Line, Value}) -> Value.
 
-makeObjectList(Verb, List) -> lists:map(fun(X) -> { Verb, X } end, List) .
-make_triples(Subject, List) -> { triples, lists:map(fun(X) -> { Subject, X } end, List) } .
+makeObjectList(Verb, List) ->
+  lists:map(fun(X) -> { Verb, X } end, List) .
+
+make_triples(Subject, List) ->
+  { triples, lists:map(fun(X) -> { Subject, X } end, List) } .
 
 prefixed_name(Prefix, Postfix) -> { prefixed, Prefix, Postfix } .
