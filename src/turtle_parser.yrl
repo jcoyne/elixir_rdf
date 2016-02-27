@@ -1,22 +1,66 @@
-Nonterminals lines triples predicateObjectList objectList subject predicate object verb iri PrefixedName prefix.
-Terminals colon semicolon p_leader pn_chars uriref string eoln.
-Rootsymbol lines.
+Nonterminals
+  turtleDoc statement directive triples predicateObjectList objectList
+  verb subject predicate object literal blankNodePropertyList prefixID
+  iri PrefixedName .
 
-lines -> triples : ['$1'].
-lines -> prefix lines : ['$1'|'$2'].
-lines -> triples lines : ['$1'|'$2'].
+Terminals
+  colon semicolon p_leader pn_chars uriref string eoln l_bracket r_bracket.
 
-objectList -> object : ['$1'].
+Rootsymbol
+  turtleDoc.
+
+turtleDoc ->
+  turtleDoc statement : ['$1'|'$2'] .
+turtleDoc ->
+  statement : ['$1'] .
+
+statement ->
+  triples eoln : '$1' .
+statement ->
+  directive : '$1' .
+
+directive ->
+  prefixID : '$1' .
+
+triples ->
+  subject predicateObjectList : make_triples('$1', '$2') .
+
+predicateObjectList ->
+  predicateObjectList semicolon verb objectList: ['$3'|makeObjectList('$3', '$4') ] .
+predicateObjectList ->
+  verb objectList: makeObjectList('$1', '$2') .
+
+objectList ->
+  object : ['$1'].
+
 verb -> predicate : '$1'.
-predicate -> iri : '$1'.
-predicateObjectList -> verb objectList semicolon : makeObjectList('$1', '$2').
-triples -> subject predicateObjectList : make_triples('$1', '$2').
+
 subject -> iri : '$1'.
-object -> string : extract_token('$1') .
-prefix -> p_leader pn_chars colon uriref eoln : { prefix, extract_token('$2'), extract_token('$4') } .
-PrefixedName -> pn_chars colon pn_chars : prefixed_name(extract_token('$1'), extract_token('$3')).
-iri -> PrefixedName : '$1'.
-iri -> uriref : extract_token('$1') .
+
+predicate -> iri : '$1'.
+
+object ->
+  iri : '$1' .
+object ->
+  literal : '$1' .
+object ->
+  blankNodePropertyList : '$1' .
+
+literal -> string : extract_token('$1') .
+
+blankNodePropertyList ->
+  l_bracket predicateObjectList r_bracket : { bnode, '$1' } .
+
+prefixID ->
+  p_leader pn_chars colon uriref eoln : { prefix, extract_token('$2'), extract_token('$4') } .
+
+iri ->
+  PrefixedName : '$1'.
+iri ->
+  uriref : extract_token('$1') .
+
+PrefixedName ->
+  pn_chars colon pn_chars : prefixed_name(extract_token('$1'), extract_token('$3')).
 
 Erlang code.
 
