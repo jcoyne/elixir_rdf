@@ -14,11 +14,15 @@ COLON         = :
 SEMICOLON     = ;
 L_BRACKET     = \[
 R_BRACKET     = \]
+TRUE          = true
+FALSE         = false
 
 Rules.
 
 {PRE_DEF}                        : {token, {p_leader, TokenLine}}.
 {A}                              : {token, {a, TokenLine}}.
+{TRUE}                           : {token, {true, TokenLine}}.
+{FALSE}                          : {token, {false, TokenLine}}.
 {TYPEDEF}                        : {token, {typedef, TokenLine}}.
 {PN_CHARS_BASE}{PN_CHARS}*       : {token, {pn_chars, TokenLine, TokenChars}}.
 {L_BRACKET}                      : {token, {l_bracket, TokenLine}}.

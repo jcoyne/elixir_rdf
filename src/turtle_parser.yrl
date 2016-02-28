@@ -1,11 +1,11 @@
 Nonterminals
   turtleDoc statement directive triples predicateObjectList objectList
-  verb subject predicate object literal RDFLiteral blankNodePropertyList
-  prefixID iri PrefixedName .
+  verb subject predicate object literal RDFLiteral BooleanLiteral
+  blankNodePropertyList prefixID iri PrefixedName .
 
 Terminals
   a typedef comma colon semicolon p_leader pn_chars uriref string eoln
-  l_bracket r_bracket.
+  l_bracket r_bracket true false.
 
 Rootsymbol
   turtleDoc.
@@ -54,6 +54,8 @@ object ->
 
 literal ->
   RDFLiteral : $1 .
+literal ->
+  BooleanLiteral : $1 .
 
 blankNodePropertyList ->
   l_bracket predicateObjectList r_bracket : { bnode, '$2' } .
@@ -62,6 +64,11 @@ RDFLiteral ->
   string : {literal, extract_token('$1') } .
 RDFLiteral ->
   string typedef iri : {literal, extract_token('$1'), '$3' } .
+
+BooleanLiteral ->
+  true : true .
+BooleanLiteral ->
+  false : false .
 
 prefixID ->
   p_leader pn_chars colon uriref eoln : { prefix, extract_token('$2'), extract_token('$4') } .
