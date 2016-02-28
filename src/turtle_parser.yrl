@@ -4,7 +4,7 @@ Nonterminals
   prefixID iri PrefixedName .
 
 Terminals
-  a typedef colon semicolon p_leader pn_chars uriref string eoln
+  a typedef comma colon semicolon p_leader pn_chars uriref string eoln
   l_bracket r_bracket.
 
 Rootsymbol
@@ -24,15 +24,17 @@ directive ->
   prefixID : '$1' .
 
 triples ->
-  subject predicateObjectList : make_triples('$1', '$2') .
+  subject predicateObjectList : {subject, '$1', '$2'} .
 
 predicateObjectList ->
-  predicateObjectList semicolon verb objectList: ['$1'|makeObjectList('$3', '$4')] .
+  predicateObjectList semicolon verb objectList: ['$1'|{predicateObjectList, '$3', '$4'}] .
 predicateObjectList ->
-  verb objectList: makeObjectList('$1', '$2') .
+  verb objectList: {predicateObjectList, '$1', '$2'} .
 
 objectList ->
   object : ['$1'].
+objectList ->
+  objectList comma object : ['$1'|'$3'].
 
 verb ->
   predicate : '$1'.

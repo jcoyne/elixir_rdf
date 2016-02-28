@@ -9,6 +9,7 @@ STRING        = \".*\"
 PRE_DEF       = @prefix
 PN_CHARS_BASE = [A-Za-z]
 PN_CHARS      = [A-Za-z0-9]
+COMMA         = ,
 COLON         = :
 SEMICOLON     = ;
 L_BRACKET     = \[
@@ -22,6 +23,7 @@ Rules.
 {PN_CHARS_BASE}{PN_CHARS}*       : {token, {pn_chars, TokenLine, TokenChars}}.
 {L_BRACKET}                      : {token, {l_bracket, TokenLine}}.
 {R_BRACKET}                      : {token, {r_bracket, TokenLine}}.
+{COMMA}                          : {token, {comma, TokenLine}}.
 {COLON}                          : {token, {colon, TokenLine}}.
 {SEMICOLON}                      : {token, {semicolon, TokenLine}}.
 {WHITESPACE}*{DOT}{WHITESPACE}*  : {token, {eoln, TokenLine}}.
