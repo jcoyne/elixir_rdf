@@ -51,3 +51,6 @@ iex> {:ok, tokens, _} = source |> String.to_char_list |> :turtle.string
 
 iex> :turtle_parser.parse(tokens)
 ```
+
+{:ok, source} = File.read('sample3.ttl')
+{:ok, tokens, _} = source |> String.to_char_list |> :turtle.string
