@@ -9,6 +9,7 @@ STRING        = \".*\"
 PRE_DEF       = @prefix
 PN_CHARS_BASE = [A-Za-z]
 PN_CHARS      = [A-Za-z0-9.]
+LANGTAG       = @[A-Za-z]+(-[a-zA-Z0-9]+)*
 COMMA         = ,
 COLON         = :
 SEMICOLON     = ;
@@ -23,6 +24,7 @@ Rules.
 {A}                              : {token, {a, TokenLine}}.
 {TRUE}                           : {token, {true, TokenLine}}.
 {FALSE}                          : {token, {false, TokenLine}}.
+{LANGTAG}                        : {token, {langtag, TokenLine, TokenChars}}.
 {TYPEDEF}                        : {token, {typedef, TokenLine}}.
 {PN_CHARS_BASE}{PN_CHARS}*       : {token, {pn_chars, TokenLine, TokenChars}}.
 {L_BRACKET}                      : {token, {l_bracket, TokenLine}}.

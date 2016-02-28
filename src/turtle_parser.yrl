@@ -5,7 +5,7 @@ Nonterminals
 
 Terminals
   a typedef comma colon semicolon p_leader pn_chars uriref string eoln
-  l_bracket r_bracket true false.
+  l_bracket r_bracket true false langtag.
 
 Rootsymbol
   turtleDoc.
@@ -53,13 +53,15 @@ object ->
   blankNodePropertyList : '$1' .
 
 literal ->
-  RDFLiteral : $1 .
+  RDFLiteral : '$1' .
 literal ->
-  BooleanLiteral : $1 .
+  BooleanLiteral : '$1' .
 
 blankNodePropertyList ->
   l_bracket predicateObjectList r_bracket : { bnode, '$2' } .
 
+RDFLiteral ->
+  string langtag: {literal, extract_token('$1'), extract_token('$2') } .
 RDFLiteral ->
   string : {literal, extract_token('$1') } .
 RDFLiteral ->
