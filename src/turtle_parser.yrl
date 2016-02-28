@@ -11,7 +11,7 @@ Rootsymbol
   turtleDoc.
 
 turtleDoc ->
-  turtleDoc statement : ['$1'|'$2'] .
+  statement turtleDoc : ['$1'|'$2'] .
 turtleDoc ->
   statement : ['$1'] .
 
@@ -27,14 +27,14 @@ triples ->
   subject predicateObjectList : {subject, '$1', '$2'} .
 
 predicateObjectList ->
-  predicateObjectList semicolon verb objectList: ['$1'|{predicateObjectList, '$3', '$4'}] .
+  verb objectList semicolon predicateObjectList : [{predicateObjectList, '$1', '$2'}|'$4'] .
 predicateObjectList ->
   verb objectList: {predicateObjectList, '$1', '$2'} .
 
 objectList ->
-  object : ['$1'].
+  object comma objectList : ['$1'|'$3'].
 objectList ->
-  objectList comma object : ['$1'|'$3'].
+  object : ['$1'].
 
 verb ->
   predicate : '$1'.
