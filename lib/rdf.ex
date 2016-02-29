@@ -1,19 +1,20 @@
 defmodule RDF do
   def parse_ntriples(content) do
     {:ok, tokens, _} = content |> String.to_char_list |> :ntriples.string
-    {:ok, result } = :ntriples_parser.parse(tokens)
-    IO.puts inspect result
+    :ntriples_parser.parse(tokens)
   end
 
   def parse_turtle(content) do
     {:ok, tokens, _} = content |> String.to_char_list |> :turtle.string
-    {:ok, result } = :turtle_parser.parse(tokens)
-    IO.puts inspect result
+    :turtle_parser.parse(tokens)
   end
 
   def parsers, do: %{ "ttl" => &RDF.parse_turtle/1, "nt" => &RDF.parse_ntriples/1 }
 
-  def main(argv), do: argv |> parse_args |> process
+  def main(argv) do
+    {:ok, result} = argv |> parse_args |> process
+    IO.puts inspect result
+  end
 
   def parse_args([]) do
     :help
@@ -30,6 +31,10 @@ defmodule RDF do
   end
 
   def process(filename) do
+    load(filename)
+  end
+
+  def load(filename) do
     case find_parser(filename) do
       {:ok, parser} ->
         parse(filename, parser)

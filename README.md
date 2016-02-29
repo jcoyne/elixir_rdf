@@ -1,4 +1,4 @@
-# A rudimentary parser for NTriples RDF
+# A rudimentary parser for NTriples/Turtle serializations of RDF
 
 ## To build
 
@@ -20,6 +20,15 @@ Presently, it's just going to spit out a list of triples.
 {'<http://www.w3.org/2001/sw/RDFCore/ntriples/>', '<http://purl.org/dc/elements/1.1/publisher>', '<http://www.w3.org/>'}]
 ```
 
+You can also use it from iex:
+
+```
+$ iex -S mix
+```
+
+```
+iex> {:ok, graph} = RDF.load("sample5.ttl")
+```
 
 ## Developing the turtle parser
 
@@ -52,5 +61,7 @@ iex> {:ok, tokens, _} = source |> String.to_char_list |> :turtle.string
 iex> :turtle_parser.parse(tokens)
 ```
 
+```
 {:ok, source} = File.read('sample3.ttl')
 {:ok, tokens, _} = source |> String.to_char_list |> :turtle.string
+```
