@@ -39,7 +39,7 @@ objectList ->
 verb ->
   predicate : '$1'.
 verb ->
-  a : { prefix, 'rdf', 'type' } .
+  a : { prefixed, "rdf", "type" } .
 
 subject -> iri : '$1'.
 

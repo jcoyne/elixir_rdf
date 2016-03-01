@@ -1,4 +1,7 @@
 defmodule RDF do
+  require Record
+  Record.defrecord :graph, [prefixes: [], subjects: %{}]
+
   def parse_ntriples(content) do
     {:ok, tokens, _} = content |> String.to_char_list |> :ntriples.string
     :ntriples_parser.parse(tokens)
@@ -56,7 +59,21 @@ defmodule RDF do
 
   def parse(filename, parser) do
     contents = load_content(filename)
-    parser.(contents)
+    {:ok, stuff} = parser.(contents)
+    # This ends up reversing the order of the list, nbd, but noteable.
+    by_type = Enum.group_by(stuff, fn(element) -> elem(element, 0) end )
+    # TODO could this be done lazily?
+    graph =
+      %{prefixes: Enum.map(by_type.prefix,
+                           fn(element) ->
+                             {elem(element, 1), elem(element,2)}
+                           end),
+        subjects: Enum.map(by_type.subject,
+                           fn(element) ->
+                             {elem(element, 1), elem(element,2)}
+                           end),
+      }
+    {:ok, graph}
   end
 
   def load_content(filename) do
