@@ -2,7 +2,8 @@ defmodule RDFTest do
   use ExUnit.Case
   doctest RDF
 
-  test "the truth" do
-    assert 1 + 1 == 2
+  test "load ttl" do
+    {:ok, graph} = RDF.load("samples/sample5.ttl")
+    assert length(graph) == 5
   end
 end

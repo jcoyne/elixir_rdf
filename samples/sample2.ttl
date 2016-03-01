@@ -1,0 +1,78 @@
+@prefix premis: <http://www.loc.gov/premis/rdf/v1#> .
+@prefix nt: <http://www.jcp.org/jcr/nt/1.0> .
+@prefix ns021: <http://lod.xdams.org/reload/oad/> .
+@prefix ns020: <http://www.rdaregistry.info/Elements/u/#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ns004: <http://projecthydra.org/ns/auth/acl#> .
+@prefix ns003: <http://www.w3.org/ns/auth/acl#> .
+@prefix ns002: <http://purl.org/dc/terms/> .
+@prefix ns001: <info:fedora/fedora-system:def/model#> .
+@prefix xsi: <http://www.w3.org/2001/XMLSchema-instance> .
+@prefix ns008: <http://www.openarchives.org/ore/terms/> .
+@prefix mode: <http://www.modeshape.org/1.0> .
+@prefix ns007: <http://projecthydra.org/ns/relations#> .
+@prefix ns006: <http://pcdm.org/models#> .
+@prefix ns005: <http://projecthydra.org/works/models#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix ns009: <http://pcdm.org/use#> .
+@prefix fedoraconfig: <http://fedora.info/definitions/v4/config#> .
+@prefix mix: <http://www.jcp.org/jcr/mix/1.0> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix image: <http://www.modeshape.org/images/1.0> .
+@prefix sv: <http://www.jcp.org/jcr/sv/1.0> .
+@prefix test: <info:fedora/test/> .
+@prefix ns011: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ns010: <http://www.iana.org/assignments/relation/> .
+@prefix ns015: <http://opaquenamespace.org/ns/cco/> .
+@prefix ns014: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix ns013: <http://www.europeana.eu/schemas/edm/> .
+@prefix ns012: <http://id.loc.gov/vocabulary/relators/> .
+@prefix ns019: <http://opaquenamespace.org/ns/> .
+@prefix ns018: <http://www.rdaregistry.info/Elements/w/#> .
+@prefix ns017: <http://www.w3.org/2003/12/exif/ns#> .
+@prefix ns016: <http://www.loc.gov/mods/rdf/v1#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix fedora: <http://fedora.info/definitions/v4/repository#> .
+@prefix ebucore: <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#> .
+@prefix ldp: <http://www.w3.org/ns/ldp#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+
+<http://127.0.0.1:8983/fedora/rest/dev/fk/4m/p5/86/fk4mp5863m> a ldp:RDFSource , ldp:Container , fedora:Container , ns005:Work , fedora:Resource , ns006:Object ;
+	ns019:seriesName "Series I: Scores"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	fedora:lastModifiedBy "bypassAdmin"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns018:formOfWork.en <http://vocab.getty.edu/aat/300026430> ;
+	ns016:accessCondition "With the permission of Couper's family, the Library has digitized portions of the collection to facilitate scholarly research into and appreciation of her music. Couper's music is still protected by copyright and the presence of these items on the web does not absolve the user of the responsibility to secure permission for performances, recordings or other uses of these items beyond the purposes of research and study."^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns002:extent "1 part (4 pages)"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns002:rightsHolder <http://id.loc.gov/authorities/names/no93011759> ;
+	ns012:cmp <http://id.loc.gov/authorities/names/no93011759> ;
+	fedora:createdBy "bypassAdmin"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	fedora:created "2016-01-29T19:50:11.825Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	fedora:lastModified "2016-01-29T19:50:11.825Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+	ns002:subject <http://id.loc.gov/authorities/subjects/sh85084939> , <http://id.loc.gov/authorities/subjects/sh85147508> ;
+	ns007:isGovernedBy <http://127.0.0.1:8983/fedora/rest/dev/au/th/or/it/authorities/policies/public> ;
+	ns002:created <http://127.0.0.1:8983/fedora/rest/dev/fk/4m/p5/86/fk4mp5863m#timespan_g70342759132180> ;
+	ns016:digitalOrigin "reformatted digital"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns016:locationCopySublocation "Department of Special Research Collections"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns002:rights <http://opaquenamespace.org/ns/rights/educational/> ;
+	premis:hasCopyrightStatus <http://id.loc.gov/vocabulary/preservation/copyrightStatus/cpr> ;
+	ns001:hasModel "Image"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns002:identifier "ark:/99999/fk4mp5863m"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns015:accessionNumber "PAMSS45-101 - PAMSS45-103"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns020:preferredCitation.en "[Identification of item], Mildred Couper papers, PA Mss 45. Department of Special Research Collections, UC Santa Barbara Library, University of California, Santa Barbara. "^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns019:contributingInstitution <http://id.loc.gov/vocabulary/organizations/cusb> ;
+	ns016:recordDescriptionStandard "local"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns002:language <http://id.loc.gov/vocabulary/iso639-2/eng> ;
+	ns002:title "Dirge for violin and piano (violin part)"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	ns002:type "notated music"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	fedora:writable "true"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+	fedora:hasParent <http://127.0.0.1:8983/fedora/rest/dev> ;
+	fedora:numberOfChildren "0"^^<http://www.w3.org/2001/XMLSchema#int> .
+
+<http://127.0.0.1:8983/fedora/rest/dev/fk/4m/p5/86/fk4mp5863m#timespan_g70342759132180> a ns013:TimeSpan ;
+	ns013:begin "1937"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://127.0.0.1:8983/fedora/rest/dev/fk/4m/p5/86/fk4mp5863m> fedora:exportsAs <http://127.0.0.1:8983/fedora/rest/dev/fk/4m/p5/86/fk4mp5863m/fcr:export?format=jcr/xml> .
+
+<http://127.0.0.1:8983/fedora/rest/dev/fk/4m/p5/86/fk4mp5863m/fcr:export?format=jcr/xml> dc:format <http://fedora.info/definitions/v4/repository#jcr/xml> .
