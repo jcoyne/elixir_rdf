@@ -59,21 +59,31 @@ defmodule RDF do
 
   def parse(filename, parser) do
     contents = load_content(filename)
-    {:ok, stuff} = parser.(contents)
-    # This ends up reversing the order of the list, nbd, but noteable.
-    by_type = Enum.group_by(stuff, fn(element) -> elem(element, 0) end )
-    # TODO could this be done lazily?
-    graph =
-      %{prefixes: Enum.map(by_type.prefix,
-                           fn(element) ->
-                             {elem(element, 1), elem(element,2)}
-                           end),
-        subjects: Enum.map(by_type.subject,
-                           fn(element) ->
-                             {elem(element, 1), elem(element,2)}
-                           end),
-      }
+    {:ok, triple_list} = parser.(contents)
+    graph = { :subject, by_subject_and_predicate(triple_list) }
     {:ok, graph}
+  end
+
+  def by_subject_and_predicate(triple_list) do
+    # This ends up reversing the order of the list, nbd, but noteable.
+    by_subject = Enum.group_by(triple_list, fn(triple) -> elem(triple, 0) end )
+    # TODO could this be done lazily?
+    Map.new(by_subject, fn({subject, triple_list}) ->
+                          { subject, by_predicate(triple_list) }
+                        end
+           )
+  end
+
+  def by_predicate(triple_list) do
+    by_predicate = Enum.group_by(triple_list, fn(triple) -> elem(triple, 1) end )
+    Map.new(by_predicate, fn({predicate, triple_list}) ->
+                            { predicate, collect_objects(triple_list) }
+                          end
+           )
+  end
+
+  def collect_objects(triple_list) do
+    Enum.map(triple_list, fn(triple) -> elem(triple, 2) end )
   end
 
   def load_content(filename) do

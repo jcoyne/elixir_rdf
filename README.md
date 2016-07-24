@@ -12,12 +12,16 @@ $ mix escript.build
 ./elixir_rdf sample.nt
 ```
 
-Presently, it's just going to spit out a list of triples.
+Presently, it's going to spit out a map representing the graph 
 
 ```
-[{'<http://www.w3.org/2001/sw/RDFCore/ntriples/>', '<http://purl.org/dc/elements/1.1/creator>', '"Dave Beckett"'},
-{'<http://www.w3.org/2001/sw/RDFCore/ntriples/>', '<http://purl.org/dc/elements/1.1/creator>', '"Art Barstow"'},
-{'<http://www.w3.org/2001/sw/RDFCore/ntriples/>', '<http://purl.org/dc/elements/1.1/publisher>', '<http://www.w3.org/>'}]
+{:subject, %{
+              '<http://www.w3.org/2001/sw/RDFCore/ntriples/>' => %{
+                    '<http://purl.org/dc/elements/1.1/creator>' => ['"Dave Beckett"', '"Art Barstow"'],
+                    '<http://purl.org/dc/elements/1.1/publisher>' => ['<http://www.w3.org/>']
+              }
+            }
+}
 ```
 
 You can also use it from iex:
