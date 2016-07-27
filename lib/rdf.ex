@@ -83,7 +83,7 @@ defmodule RDF do
   end
 
   def collect_objects(triple_list) do
-    Enum.map(triple_list, fn(triple) -> elem(triple, 2) end )
+    MapSet.new(triple_list, fn(triple) -> elem(triple, 2) end )
   end
 
   def load_content(filename) do
