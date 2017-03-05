@@ -8,7 +8,7 @@ defmodule RDF.Mixfile do
      escript: [main_module: RDF],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
@@ -28,6 +28,6 @@ defmodule RDF.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:poison, "~> 3.0"}]
   end
 end

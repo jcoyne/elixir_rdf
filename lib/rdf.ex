@@ -1,4 +1,5 @@
 defmodule RDF do
+  alias RDF.JsonldParser
   require Record
   Record.defrecord :graph, [prefixes: [], subjects: %{}]
 
@@ -12,7 +13,17 @@ defmodule RDF do
     :turtle_parser.parse(tokens)
   end
 
-  def parsers, do: %{ "ttl" => &RDF.parse_turtle/1, "nt" => &RDF.parse_ntriples/1 }
+  def parse_jsonld(content) do
+    JsonldParser.parse(content)
+  end
+
+  def parsers do
+    %{ "ttl" => &RDF.parse_turtle/1,
+       "nt" => &RDF.parse_ntriples/1,
+       "json" => &RDF.parse_jsonld/1
+    }
+  end
+
 
   def main(argv) do
     {:ok, result} = argv |> parse_args |> process
@@ -50,8 +61,8 @@ defmodule RDF do
   def find_parser(filename) do
     suffix = List.last String.split(filename, ~r{\.})
     cond do
-      Enum.member?(["nt", "ttl"], suffix) ->
-        {:ok, parsers[suffix]}
+      Enum.member?(["nt", "ttl", "json"], suffix) ->
+        {:ok, parsers()[suffix]}
       true ->
         {:error, "No parser found for #{suffix}"}
     end
