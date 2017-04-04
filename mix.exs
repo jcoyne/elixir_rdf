@@ -8,6 +8,7 @@ defmodule RDF.Mixfile do
      escript: [main_module: RDF],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     preferred_cli_env: [espec: :test],
      deps: deps()]
   end
 
@@ -28,6 +29,7 @@ defmodule RDF.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:poison, "~> 3.0"}]
+    [{:poison, "~> 3.0"},
+     {:espec, "~> 1.3.4", only: :test}]
   end
 end

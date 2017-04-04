@@ -12,7 +12,7 @@ $ mix escript.build
 ./elixir_rdf sample.nt
 ```
 
-Presently, it's going to spit out a map representing the graph 
+Presently, it's going to spit out a map representing the graph
 
 ```
 {:subject, %{
@@ -32,6 +32,12 @@ $ iex -S mix
 
 ```
 iex> {:ok, graph} = RDF.load("sample5.ttl")
+```
+
+## Running tests:
+
+```
+mix espec
 ```
 
 ## Developing the turtle parser

@@ -1,7 +1,7 @@
 defmodule RDF do
   alias RDF.JsonldParser
-  require Record
-  Record.defrecord :graph, [prefixes: [], subjects: %{}]
+  alias RDF.Graph
+  require Graph
 
   def parse_ntriples(content) do
     {:ok, tokens, _} = content |> String.to_char_list |> :ntriples.string
@@ -24,7 +24,6 @@ defmodule RDF do
     }
   end
 
-
   def main(argv) do
     {:ok, result} = argv |> parse_args |> process
     IO.puts inspect result
@@ -37,6 +36,10 @@ defmodule RDF do
   # Returns a filename
   def parse_args(args) do
     List.first(args)
+  end
+
+  def type() do
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
   end
 
   def process(:help) do
@@ -58,7 +61,7 @@ defmodule RDF do
     end
   end
 
-  def find_parser(filename) do
+  defp find_parser(filename) do
     suffix = List.last String.split(filename, ~r{\.})
     cond do
       Enum.member?(["nt", "ttl", "json"], suffix) ->
@@ -71,30 +74,7 @@ defmodule RDF do
   def parse(filename, parser) do
     contents = load_content(filename)
     {:ok, triple_list} = parser.(contents)
-    graph = { :subject, by_subject_and_predicate(triple_list) }
-    {:ok, graph}
-  end
-
-  def by_subject_and_predicate(triple_list) do
-    # This ends up reversing the order of the list, nbd, but noteable.
-    by_subject = Enum.group_by(triple_list, fn(triple) -> elem(triple, 0) end )
-    # TODO could this be done lazily?
-    Map.new(by_subject, fn({subject, triple_list}) ->
-                          { subject, by_predicate(triple_list) }
-                        end
-           )
-  end
-
-  def by_predicate(triple_list) do
-    by_predicate = Enum.group_by(triple_list, fn(triple) -> elem(triple, 1) end )
-    Map.new(by_predicate, fn({predicate, triple_list}) ->
-                            { predicate, collect_objects(triple_list) }
-                          end
-           )
-  end
-
-  def collect_objects(triple_list) do
-    MapSet.new(triple_list, fn(triple) -> elem(triple, 2) end )
+    Graph.graph(triples: triple_list)
   end
 
   def load_content(filename) do
