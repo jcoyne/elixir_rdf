@@ -2,6 +2,7 @@ defmodule RDF do
   alias RDF.JsonldParser
   alias RDF.Graph
   require Graph
+  import RDF.IRI
 
   def parse_ntriples(content) do
     {:ok, tokens, _} = content |> String.to_char_list |> :ntriples.string
@@ -39,7 +40,7 @@ defmodule RDF do
   end
 
   def type() do
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+    iri(resource: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
   end
 
   def process(:help) do

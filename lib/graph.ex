@@ -2,10 +2,30 @@ defmodule RDF.Graph do
     require Record
     Record.defrecord :graph, [prefixes: [], triples: []]
 
+    def query(target, %{predicate: predicate, object: object}) do
+      Enum.filter(graph(target, :triples), fn(triple) ->
+        elem(triple, 1) == predicate &&
+        elem(triple, 2) == object
+      end)
+    end
+
+
+    def query(target, %{subject: subject}) do
+      Enum.filter(graph(target, :triples), fn(triple) ->
+        elem(triple, 0) == subject
+      end)
+    end
+
+    def query(target, %{predicate: predicate}) do
+      Enum.filter(graph(target, :triples), fn(triple) ->
+        elem(triple, 1) == predicate
+      end)
+    end
+
     def query(target, %{}) do
-      IO.inspect target
       graph(target, :triples)
     end
+
 
     # This builds an index, but it's not clear that it's actually helpful to have off the bat
     def by_subject_and_predicate(triple_list) do
