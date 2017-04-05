@@ -1,4 +1,4 @@
-# A rudimentary parser for NTriples/Turtle serializations of RDF
+# A rudimentary parser for NTriples/Turtle/JSON+LD serializations of RDF
 
 ## To build
 
